@@ -14,6 +14,7 @@ Key size是128bit
 用PKCS#7作padding
 
 ## TODO
+- [x] 包裝函數
 - [ ] 加入test
 - [ ] 將目前的64bit Block變成128bit
 - [ ] 加入Key，算出16個Round的key
