@@ -14,8 +14,8 @@ int main() {
 
     // 存放明文的vector<uint8_t>
     vector<uint8_t> prePlain;
-    // 存放明文的vector<DATA>
-    vector<DATA> plain;
+    // 存放明文的vector<uint64_t>
+    vector<uint64_t> plain;
 
     str2Byte(text, prePlain);
     addPadding(prePlain);
@@ -25,19 +25,19 @@ int main() {
     // 加密
     // *----------------------------------------------------*
 
-    // 存放密文的vector<DATA>
-    vector<DATA> cipher;
+    // 存放密文的vector<uint64_t>
+    vector<uint64_t> cipher;
     doFeistel(plain, cipher);
     print(cipher);
 
     // 解密
     // *----------------------------------------------------*
 
-    // 存放解回的明文的vector<DATA>
-    vector<DATA> decryPlain;
+    // 存放解回的明文的vector<uint64_t>
+    vector<uint64_t> decryPlain;
     doFeistel(cipher, decryPlain);
     print(decryPlain);
-    
+
     // 把解回的明文以byte儲存
     vector<uint8_t> byte;
     data2Byte(decryPlain, byte);
