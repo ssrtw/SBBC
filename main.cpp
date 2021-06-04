@@ -27,7 +27,7 @@ int main() {
 
     // 存放密文的vector<uint64_t>
     vector<uint64_t> cipher;
-    doFeistel(plain, cipher);
+    encrypt(plain, cipher);
     print(cipher);
 
     // 解密
@@ -35,7 +35,7 @@ int main() {
 
     // 存放解回的明文的vector<uint64_t>
     vector<uint64_t> decryPlain;
-    doFeistel(cipher, decryPlain);
+    decrypt(cipher, decryPlain);
     print(decryPlain);
 
     // 把解回的明文以byte儲存

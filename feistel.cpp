@@ -44,29 +44,53 @@ void reverse(uint64_t* x) {
 // 將uint64_t的前後半bit做對調
 // @param val block左半值
 // return Function算出的值
-void highLowChange(uint64_t* val) {
-    uint64_t high, low;
+void highLowChange(uint64_t &val) {
     // uint64_t 是 8byte
     // >>16是移動4個byte，0xffffffff共32個1
-    high = (*val >> 32);
-    low = (*val & 0xffffffff);
     // 把高低兩邊對調
-    *val = high | (low << 32);
+    val = (val >> 32) | ((val & 0xffffffff) << 32);
+}
+
+// 取sbox的值做替換
+// @param val 原始資料
+// @param hand 選用一個sbox
+// @return 原始資料經過sbox替換後的值
+
+uint32_t s(uint32_t val, int hand) {
+    uint32_t res = 0;
+    uint8_t tmp;
+    for (int i = 0; i < 4; i++) {
+        // 拿一個byte出來
+        tmp = val >> 8 * i & 0xff;
+        // 找box要替代的值
+        res |= (sbox[hand][tmp >> 4][tmp & 0xf]) << 8 * i;
+    }
+    return res;
 }
 
 // 自訂的Feistel的Function
 // @param val block左半值
+// @param round 現在是第幾round
 // @return Function算出的值
-uint64_t F(uint64_t val) {
-    val ^= 0xC87631999f88f423;  // C8763星爆氣流斬，1999/4/23我生日，民國88年
-    reverse(&val);
-    val ^= 0x1061201111021601;  // 學號去掉前面的4，反過來在key 1次
-    highLowChange(&val);        // 高byte與低byte交換
-    val ^= 0x5b6b5b7887b5b6b5;  // 孫:5b6b，學:5b78，反過來再放一次
-    highLowChange(&val);        // 高byte與低byte交換
-    val ^= 0x4efbbfe44efbbfe4;  // 任:4efb，反轉後再放一次
-    reverse(&val);
-    val ^= 0x68508c37548c4eba;  // 桐谷和人的utf8
+uint64_t F(uint64_t val, int round) {
+    int lHand = hands[round][0], rHand = hands[round][1];
+    uint32_t h = s((uint32_t)(val >> 32), lHand);
+    uint32_t l = s((uint32_t)(val & 0xffffffffffffffff), rHand);
+    val = (uint64_t)(h) << 32 | l;
+    val ^= ssrH;
+    reverse(&val);  // bit反轉
+    val ^= ssrL;
+    highLowChange(val);  // 高byte與低byte交換
+
+    val ^= gojoH;
+    reverse(&val);  // bit反轉
+    val ^= gojoL;
+    highLowChange(val);  // 高byte與低byte交換
+
+    val ^= kirotoH;
+    reverse(&val);  // bit反轉
+    val ^= kirotoL;
+    highLowChange(val);  // 高byte與低byte交換
 
     // Permutation
     uint64_t tmp = 0;
@@ -76,10 +100,10 @@ uint64_t F(uint64_t val) {
     return val;
 }
 
-// 運行Feistel結構做加解密
+// 運行Feistel結構做加密
 // @param before 加密或解密前的vector
 // @param after 加密或解密後要存放計算的vector
-void doFeistel(vector<uint64_t>& before, vector<uint64_t>& after) {
+void encrypt(vector<uint64_t>& before, vector<uint64_t>& after) {
     uint64_t L, R;
     for (int i = 0; i < before.size(); i += 2) {
         L = before[i];
@@ -87,11 +111,38 @@ void doFeistel(vector<uint64_t>& before, vector<uint64_t>& after) {
         // 跑round
         for (int j = 0; j < 16; j++) {
             // 算F函數值
-            uint64_t f = F(R);
+            uint64_t f = F(R, j);
             // 把左半XOR F函數的結果
             L ^= f;
             // 不是最後一round都要左右交換
             if (j != 15) {
+                // swap兩邊
+                R ^= L;
+                L ^= R;
+                R ^= L;
+            }
+        }
+        after.push_back(L);
+        after.push_back(R);
+    }
+}
+
+// 運行Feistel結構做解密
+// @param before 加密或解密前的vector
+// @param after 加密或解密後要存放計算的vector
+void decrypt(vector<uint64_t>& before, vector<uint64_t>& after) {
+    uint64_t L, R;
+    for (int i = 0; i < before.size(); i += 2) {
+        L = before[i];
+        R = before[i + 1];
+        // 跑round
+        for (int j = 15; j >= 0; j--) {
+            // 算F函數值
+            uint64_t f = F(R, j);
+            // 把左半XOR F函數的結果
+            L ^= f;
+            // 不是最後一round都要左右交換
+            if (j != 0) {
                 // swap兩邊
                 R ^= L;
                 L ^= R;
