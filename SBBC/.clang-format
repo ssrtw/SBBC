@@ -1,0 +1,5 @@
+# 保留原本在VSCode設定的Format，使風格一致
+
+BasedOnStyle: Google
+IndentWidth: 4
+ColumnLimit: 0

@@ -1,9 +1,12 @@
-#ifndef FEISTEL_H
+﻿#ifndef FEISTEL_H
 #define FEISTEL_H
 
+// 用於檢視加解密花費時間
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <string.h>
 
 #include "const.h"
 using namespace std;
@@ -11,8 +14,8 @@ using namespace std;
 void print(vector<uint64_t>& v);
 void print(vector<uint8_t>& v);
 
-void addbit(uint64_t* block, uint64_t from, int position_from, int position_to);
-void reverse(uint64_t* x);
+void addbit(uint64_t& block, uint64_t from, int position_from, int position_to);
+void reverse(uint64_t& x);
 void highLowChange(uint64_t& val);
 
 uint32_t s(uint32_t val, int hand);
