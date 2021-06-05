@@ -207,7 +207,7 @@ void addPadding(vector<uint8_t>& byte) {
 }
 
 // 移除解回明文的padding
-// 以PKCS#5 padding
+// 以PKCS#7 padding
 // @param byte 要移除padding的vector
 void removePadding(vector<uint8_t>& byte) {
     uint8_t check = byte[byte.size() - 1];
