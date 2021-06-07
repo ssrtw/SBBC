@@ -1,4 +1,6 @@
-﻿static const uint8_t DATA_SIZE = sizeof(uint64_t);    // 半個block的大小
+﻿#ifndef CONST_H
+#define CONST_H
+static const uint8_t DATA_SIZE = sizeof(uint64_t);    // 半個block的大小
 static const uint64_t FIRSTBIT = 0x8000000000000000;  // 1000000000...
 static const uint64_t ssrH = 0xf35a82e5759b0fa8;      // "孫學任"的md5高的那半
 static const uint64_t ssrL = 0xf35a82e5759b0fa8;      // "孫學任"的md5低的那半
@@ -7,7 +9,7 @@ static const uint64_t gojoL = 0xd2ec42b22ed6ad52;     // "五条悟"的md5低的
 static const uint64_t kirotoH = 0xcc74f0e4b37aa6ef;   // "桐ヶ谷和人"的md5高的那半
 static const uint64_t kirotoL = 0x0da4527eee7a35b7;   // "桐ヶ谷和人"的md5低的那半
 
-// Feistel F function 使用的 置換表
+// Feistel F 使用的置換表
 // row 1前5個值是48763(星爆氣流斬)
 // col 1(idx=0,8,16...)的前五個值是學號410612011
 static const int Pbox[64] = {4, 8, 7, 6, 3, 14, 16, 12,
@@ -149,3 +151,23 @@ static const uint8_t sbox[8][16][16] = {{{0x5d, 0x5b, 0x97, 0x63, 0x34, 0x0e, 0x
                                          {0xe9, 0xe0, 0xf9, 0x15, 0xe5, 0x12, 0xf5, 0xc6, 0x16, 0xa4, 0xc9, 0xba, 0x2e, 0xf0, 0xd9, 0x53},
                                          {0x84, 0x70, 0x3c, 0x73, 0xf4, 0xa4, 0x5b, 0x25, 0xde, 0x8b, 0xd5, 0xab, 0x17, 0x49, 0x72, 0x4a},
                                          {0xcb, 0x68, 0xe9, 0x1a, 0xdd, 0x3a, 0x3b, 0xad, 0xf4, 0x36, 0x14, 0x45, 0x28, 0x06, 0xba, 0x8d}}};
+
+// 學MD5，但改用cos做生成
+// for(int i=0;i<64;i++)
+//     (uint32_t)floor(abs(cos(i + 1)) * (1l << 32)))
+static const uint32_t keyK[64] = {0x8a51407d, 0x6a88995d, 0xfd7025f4, 0xa7553036, 0x489e15c1, 0xf5cdb84b, 0xc0ffbcf6, 0x253f7d7e,
+                                  0xe93fd535, 0xd6cd6448, 0x01220ae4, 0xd806d023, 0xe84e6ea9, 0x230135d8, 0xc27ae834, 0xf5292bf4,
+                                  0x46711ac1, 0xa90a840a, 0xfd1bbef0, 0x687810e5, 0x8c37fc1b, 0xfffd6ec6, 0x8867beac, 0x6c96fed4,
+                                  0xfdbf77ac, 0xa59c8134, 0x4ac99be5, 0xf66d568a, 0xbf80b2c1, 0x277d05e4, 0xea2c8e1f, 0xd58fa982,
+                                  0x03661adb, 0xd93be6ca, 0xe7585f52, 0x20c23a76, 0xc3f22ce1, 0xf47fb4d2, 0x4442b612, 0xaabc73eb,
+                                  0xfcc24453, 0x66657006, 0x8e1be7c3, 0xfff5bb27, 0x867b8079, 0x6ea336bb, 0xfe09b282, 0xa3e07fda,
+                                  0x4cf3a208, 0xf708037e, 0xbdfdd143, 0x29b9c389, 0xeb1494a7, 0xd44da632, 0x05aa195e, 0xda6ca20a,
+                                  0xe65dac20, 0x1e8296e0, 0xc5658374, 0xf3d1564b, 0x4212f2e5, 0xac6af723, 0xfc63b7e7, 0x6450c165};
+
+// hash function要rotate所查的表
+static const uint8_t rot[64] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
+                                5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
+                                4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
+                                6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
+
+#endif
