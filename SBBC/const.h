@@ -3,7 +3,7 @@
 static const uint8_t DATA_SIZE = sizeof(uint64_t);    // 半個block的大小
 static const uint64_t FIRSTBIT = 0x8000000000000000;  // 1000000000...
 static const uint64_t ssrH = 0xf35a82e5759b0fa8;      // "孫學任"的md5高的那半
-static const uint64_t ssrL = 0xf35a82e5759b0fa8;      // "孫學任"的md5低的那半
+static const uint64_t ssrL = 0xd0742001811ef175;      // "孫學任"的md5低的那半
 static const uint64_t gojoH = 0xd1cc5e9b4eb66b90;     // "五条悟"的md5高的那半
 static const uint64_t gojoL = 0xd2ec42b22ed6ad52;     // "五条悟"的md5低的那半
 static const uint64_t kirotoH = 0xcc74f0e4b37aa6ef;   // "桐ヶ谷和人"的md5高的那半
