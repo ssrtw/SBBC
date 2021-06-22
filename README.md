@@ -20,7 +20,7 @@ Star Burst Block Cipher(SBBC, 星爆區塊密)
 1. 每次讀取128bits(一個block)
 2. block拆分為L與R兩半，將R(低的64bits)丟入Feistel Function中與round key進行運算
 3. 將運算結果與L(高的64bits)與2的結果做XOR
-4. 將左右兩半bits交換，如果是最後1 roundu就不交換
+4. 將左右兩半bits交換，如果是最後1 round就不交換
 5. 重複以上四個動作，共進行16次
 
 ![Feistel](img/Feistel.svg)
@@ -89,7 +89,7 @@ padding的方法如MD5與SHA2一樣，先padding 100...00足到448bit，再補�
 hash的過程如下圖，跟MD5結構一樣，但是我將部分F的函數換掉，把左旋的函數改成右旋。
 將128bits分為4個32bits:a, b, c, d。
 將a, b, c, d的初始值設為：
-|          | a          | b          | c                | d                |
+|    1      | a          | b          | c                | d                |
 | -------- | ---------- | ---------- | ---------------- | ---------------- |
 | 初始值   | 0x19990423 | 0x20081007 | 0x5ce34160       | 0xa1f04b47       |
 | 找值原因 | 我的生日   | 桐人生日   | C87取63最高4byte | C87取63次高4byte |

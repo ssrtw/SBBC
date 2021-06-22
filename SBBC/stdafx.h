@@ -18,3 +18,5 @@
 
 using namespace std;
 using namespace argparse;
+
+void SetColor(int color);

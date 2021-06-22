@@ -143,16 +143,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="argHandle.h" />
     <ClInclude Include="argparse\argparse.hpp" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="const.h" />
-    <ClInclude Include="feistel.h" />
+    <ClInclude Include="Feistel.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="feistel.cpp" />
-    <ClCompile Include="argHandle.cpp" />
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Feistel.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="util.cpp" />

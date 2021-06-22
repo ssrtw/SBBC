@@ -12,17 +12,7 @@ uint64_t rotateR(uint64_t value, uint8_t shift);
 
 // 資料處理相關
 
-void str2Byte(string str, vector<uint8_t>& bytes);
-void byteToU32(vector<uint8_t>& bytes, vector<uint32_t>& data);
-void byteToU64(vector<uint8_t>& bytes, vector<uint64_t>& data);
-void u64ToByte(vector<uint64_t>& data, vector<uint8_t>& bytes);
-
-void addPKCS7(vector<uint8_t>& bytes);
-void rmPKCS7(vector<uint8_t>& bytes);
-
-void keyPadding(vector<uint8_t>& key);
-
-// key生成相關
-void keyHashing(vector<uint32_t>& in, vector<uint64_t>& out);
-void genKeys(vector<uint8_t>& key, vector<uint64_t>& keys);
-void genKeys(string& key, vector<uint64_t>& keys);
+vector<uint8_t>* str2Byte(string str);
+vector<uint32_t>* byteToU32(vector<uint8_t>* bytes);
+vector<uint64_t>* byteToU64(vector<uint8_t>* bytes);
+vector<uint8_t>* u64ToByte(vector<uint64_t>* data);

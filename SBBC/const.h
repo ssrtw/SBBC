@@ -1,5 +1,4 @@
-﻿#ifndef CONST_H
-#define CONST_H
+﻿#pragma once
 static const uint8_t DATA_SIZE = sizeof(uint64_t);    // 半個block的大小
 static const uint64_t FIRSTBIT = 0x8000000000000000;  // 1000000000...
 static const uint64_t ssrH = 0xf35a82e5759b0fa8;      // "孫學任"的md5高的那半
@@ -192,5 +191,3 @@ static const uint8_t IP1[64] = {
     34, 2, 42, 10, 50, 18, 24, 26,
     56, 1, 41, 9, 49, 17, 31, 25,
     32, 0, 40, 8, 48, 61, 33, 58};
-
-#endif
