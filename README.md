@@ -108,5 +108,7 @@ M~i~表示32bits的輸入資料，i從0到15，共512bits(一個block大小)。
 
 ## TODO
 
-- [ ] 用Initial permutation，與IP^-1^
-- [ ] 把ECB模式換成其他[區塊加密法工作模式](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)
+- [X] 用Initial permutation，與IP^-1^
+- [X] 能切換ECB或CBC模式[區塊加密法工作模式](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)
+- [X] 加解密的明(密)文與key可以讀取File
+- [ ] 把加解密function包裝成class
