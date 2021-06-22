@@ -114,10 +114,6 @@ void Config::saveFile(vector<uint8_t>* result) {
     // *----------------------------------------------------*
     ofstream output_file(outputName, ios::out | ios::binary);
     ostream_iterator<uint8_t> output_iterator(output_file);
-    if (!isEncrypt) {
-        print(*result);
-        cout << endl;
-    }
     copy(result->begin(), result->end(), output_iterator);
     output_file.close();
 }
@@ -129,12 +125,26 @@ Config::Config() {
 
 Config::Config(int argc, char* argv[]) : Config() {
     parserInit(argc, argv);
-    setArg();
+    try {
+        setArg();
+    } catch (int errCode) {
+        SetColor(124);  // ¦Ç©³¬õ¦r
+        cerr << "Input file not exist!!!" << endl;
+        SetColor(7);  // Reset
+        exit(0);
+    }
 }
 
 Config::Config(vector<string>& args) : Config() {
     parserInit(args);
-    setArg();
+    try {
+        setArg();
+    } catch (int errCode) {
+        SetColor(124);  // ¦Ç©³¬õ¦r
+        cerr << "Input file not exist!!!" << endl;
+        SetColor(7);  // Reset
+        exit(0);
+    }
 }
 
 Config::~Config() {

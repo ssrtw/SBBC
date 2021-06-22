@@ -206,6 +206,7 @@ vector<uint8_t>* Feistel::Run(vector<uint8_t>* input) {
             SetColor(124);  // 灰底紅字
             cerr << "Decryption wrong, can't remove padding!" << endl;
             SetColor(7);  // Reset
+            exit(0);
         }
     }
     auto end = chrono::steady_clock::now();
