@@ -110,7 +110,7 @@ void Config::setArg() {
 }
 
 void Config::saveFile(vector<uint8_t>* result) {
-    // ¿é¥XÀÉ®×
+    // ï¿½ï¿½Xï¿½É®ï¿½
     // *----------------------------------------------------*
     ofstream output_file(outputName, ios::out | ios::binary);
     ostream_iterator<uint8_t> output_iterator(output_file);
@@ -119,7 +119,7 @@ void Config::saveFile(vector<uint8_t>* result) {
 }
 
 Config::Config() {
-    program = new ArgumentParser("SBBC");
+    program = new ArgumentParser("SBCA");
     buildArgs();
 }
 
@@ -128,7 +128,7 @@ Config::Config(int argc, char* argv[]) : Config() {
     try {
         setArg();
     } catch (int errCode) {
-        SetColor(124);  // ¦Ç©³¬õ¦r
+        SetColor(124);  // ï¿½Ç©ï¿½ï¿½ï¿½ï¿½r
         cerr << "Input file not exist!!!" << endl;
         SetColor(7);  // Reset
         exit(0);
@@ -140,7 +140,7 @@ Config::Config(vector<string>& args) : Config() {
     try {
         setArg();
     } catch (int errCode) {
-        SetColor(124);  // ¦Ç©³¬õ¦r
+        SetColor(124);  // ï¿½Ç©ï¿½ï¿½ï¿½ï¿½r
         cerr << "Input file not exist!!!" << endl;
         SetColor(7);  // Reset
         exit(0);
