@@ -1,4 +1,4 @@
-# Starburst Block Cypher Algorithm
+# Starburst Block Cipher Algorithm
 
 109TTU網路安全期末作業，設計Feistel結構的加解密演算法
 星爆區塊加密演算法、スターバストブロックサイファーアルゴリズム
